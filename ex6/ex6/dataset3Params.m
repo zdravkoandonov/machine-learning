@@ -26,7 +26,33 @@ sigma = 0.3;
 
 
 
+cArr = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+sigmaArr = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+bestCIndex = 1;
+bestSigmaIndex = 1;
 
+
+model = svmTrain(X, y, cArr(1), @(x1, x2) gaussianKernel(x1, x2, sigmaArr(1)));
+predictions = svmPredict(model, Xval);
+
+bestError = mean(double(predictions ~= yval));
+
+
+for i = 1:8
+	for j = 1:8
+		model = svmTrain(X, y, cArr(i), @(x1, x2) gaussianKernel(x1, x2, sigmaArr(j)));
+		predictions = svmPredict(model, Xval);
+		error = mean(double(predictions ~= yval));
+		if (error < bestError)
+			bestCIndex = i;
+			bestSigmaIndex = j;
+			bestError = error;
+		endif
+	endfor
+endfor
+
+C = cArr(bestCIndex);
+sigma = sigmaArr(bestSigmaIndex);
 
 
 % =========================================================================

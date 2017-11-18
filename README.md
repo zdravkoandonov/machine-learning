@@ -1,2 +1,3 @@
-# machine-learning
-Assignments from the Machine Learning course @ Stanford University
+# Machine Learning
+
+[Assignments from the Machine Learning course with Andrew Ng (Coursera/Stanford University)](coursera-ml)
